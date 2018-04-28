@@ -17,11 +17,6 @@ per-instance overhead by creating many small collections with a single element.
 *This over-reports per-instance overhead by 4 bytes due to
 `Collection<Collection>`*
 
-```bash
-target/java-collection-overhead --list | grep -v Enum | while read c; do target/java-collection-overhead $c $((8 * 1024 * 1024)) 1 || break; done
-target/java-collection-overhead --list | while read c; do target/java-collection-overhead $c 1 $((1024 * 1024)) || break; done
-```
-
 | Collection             | Per-entry<br />Overhead (bytes) | Per-instance<br />Overhead (bytes) |
 | ---------------------- | ---:| ---:|
 | **List**               |     |     |
@@ -67,6 +62,13 @@ target/java-collection-overhead --list | while read c; do target/java-collection
 | LinkedHashSet          |  48 | 140 |
 | TLongHashSet           |  18 | 132 |
 | TreeSet                |  40 | 108 |
+
+Collected via:
+
+```bash
+target/java-collection-overhead --list | grep -v Enum | while read c; do target/java-collection-overhead $c $((8 * 1024 * 1024)) 1 || break; done
+target/java-collection-overhead --list | while read c; do target/java-collection-overhead $c 1 $((1024 * 1024)) || break; done
+```
 
 ## References
 
