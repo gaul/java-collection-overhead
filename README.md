@@ -24,39 +24,48 @@ target/java-collection-overhead --list | while read c; do target/java-collection
 
 | Collection             | Per-entry<br />Overhead (bytes) | Per-instance<br />Overhead (bytes) |
 | ---------------------- | ---:| ---:|
-| ArrayDeque             |   8 | 108 |
+| **List**               |     |     |
 | ArrayList              |   4 |  52 |
+| ImmutableList          |   4 |  20 |
+| LinkedList             |  24 |  60 |
+| TLongArrayList         |   8 |  60 |
+| TLongLinkedList        |  32 |  68 |
+|                        |     |     |
+| **Map**                |     |     |
 | Cache                  |  56 | 916 |
 | ConcurrentHashMap      |  40 | 180 |
-| ConcurrentHashMultiset |  56 | 220 |
-| ConcurrentLinkedDeque  |  24 |  76 |
 | ConcurrentSkipListMap  |  36 | 145 |
-| ConcurrentSkipListSet  |  36 | 161 |
 | EnumMap                | n/a | 124 |
-| EnumSet                | n/a |  36 |
 | HashMap                |  40 | 108 |
-| HashMultiset           |  56 | 156 |
-| HashSet                |  40 | 124 |
-| ImmutableList          |   4 |  20 |
 | ImmutableMap           |  32 |  44 |
-| ImmutableMultiset      |  32 | 116 |
 | ImmutableRangeMap      |  64 | 116 |
-| ImmutableSet           |  12 |  28 |
 | ImmutableSortedMap     |   8 | 108 |
-| ImmutableSortedSet     |   4 |  52 |
 | LinkedHashMap          |  48 | 124 |
-| LinkedHashMultiset     |  64 | 172 |
-| LinkedHashSet          |  48 | 140 |
-| LinkedList             |  24 |  60 |
 | MapMaker               |  40 | 244 |
-| PriorityQueue          |   4 |  60 |
-| TLongArrayList         |   8 |  60 |
-| TLongHashSet           |  18 | 132 |
-| TLongLinkedList        |  32 |  68 |
 | TLongLongHashMap       |  34 | 180 |
 | TreeMap                |  40 |  92 |
-| TreeMultiset           |  56 | 212 |
 | TreeRangeMap           | 120 | 188 |
+|                        |     |     |
+| **Multiset**           |     |     |
+| ConcurrentHashMultiset |  56 | 220 |
+| HashMultiset           |  56 | 156 |
+| ImmutableMultiset      |  32 | 116 |
+| LinkedHashMultiset     |  64 | 172 |
+| TreeMultiset           |  56 | 212 |
+|                        |     |     |
+| **Queue**              |     |     |
+| ArrayDeque             |   8 | 108 |
+| ConcurrentLinkedDeque  |  24 |  76 |
+| PriorityQueue          |   4 |  60 |
+|                        |     |     |
+| **Set**                |     |     |
+| ConcurrentSkipListSet  |  36 | 161 |
+| EnumSet                | n/a |  36 |
+| HashSet                |  40 | 124 |
+| ImmutableSet           |  12 |  28 |
+| ImmutableSortedSet     |   4 |  52 |
+| LinkedHashSet          |  48 | 140 |
+| TLongHashSet           |  18 | 132 |
 | TreeSet                |  40 | 108 |
 
 ## References
