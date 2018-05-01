@@ -57,10 +57,12 @@ per-instance overhead by creating many small collections with a single element.
 | ConcurrentSkipListSet  |  36 | 161 |
 | EnumSet                | n/a |  36 |
 | HashSet                |  40 | 124 |
+| ImmutableRangeSet      |  60 | 100 |
 | ImmutableSet           |  12 |  28 |
 | ImmutableSortedSet     |   4 |  52 |
 | LinkedHashSet          |  48 | 140 |
 | TLongHashSet           |  18 | 132 |
+| TreeRangeSet           |  96 | 180 |
 | TreeSet                |  40 | 108 |
 
 Collected via:

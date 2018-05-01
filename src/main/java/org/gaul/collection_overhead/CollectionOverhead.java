@@ -49,6 +49,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultiset;
 import com.google.common.collect.ImmutableRangeMap;
+import com.google.common.collect.ImmutableRangeSet;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
@@ -57,8 +58,10 @@ import com.google.common.collect.MapMaker;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Range;
 import com.google.common.collect.RangeMap;
+import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeMultiset;
 import com.google.common.collect.TreeRangeMap;
+import com.google.common.collect.TreeRangeSet;
 import com.google.common.io.CharStreams;
 
 import gnu.trove.TLongCollection;
@@ -87,6 +90,7 @@ public final class CollectionOverhead {
             "ImmutableMap",
             "ImmutableMultiset",
             "ImmutableRangeMap",
+            "ImmutableRangeSet",
             "ImmutableSet",
             "ImmutableSortedMap",
             "ImmutableSortedSet",
@@ -103,6 +107,7 @@ public final class CollectionOverhead {
             "TreeMap",
             "TreeMultiset",
             "TreeRangeMap",
+            "TreeRangeSet",
             "TreeSet"
     );
 
@@ -155,7 +160,9 @@ public final class CollectionOverhead {
         ImmutableCollection.Builder<Integer> collectionBuilder = null;
         ImmutableMap.Builder<Integer, Integer> mapBuilder = null;
         RangeMap<Integer, Integer> rangeMap = null;
+        RangeSet<Integer> rangeSet = null;
         ImmutableRangeMap.Builder<Integer, Integer> rangeMapBuilder = null;
+        ImmutableRangeSet.Builder<Integer> rangeSetBuilder = null;
         TLongCollection troveCollection = null;
         TLongLongHashMap troveHashMap = null;
 
@@ -194,6 +201,8 @@ public final class CollectionOverhead {
             collectionBuilder = ImmutableMultiset.builder();
         } else if (type.equals("ImmutableRangeMap")) {
             rangeMapBuilder = ImmutableRangeMap.builder();
+        } else if (type.equals("ImmutableRangeSet")) {
+            rangeSetBuilder = ImmutableRangeSet.builder();
         } else if (type.equals("ImmutableSet")) {
             collectionBuilder = ImmutableSet.builder();
         } else if (type.equals("ImmutableSortedMap")) {
@@ -226,6 +235,8 @@ public final class CollectionOverhead {
             collection = TreeMultiset.create();
         } else if (type.equals("TreeRangeMap")) {
             rangeMap = TreeRangeMap.create();
+        } else if (type.equals("TreeRangeSet")) {
+            rangeSet = TreeRangeSet.create();
         } else if (type.equals("TreeSet")) {
             collection = new TreeSet<>();
         } else {
@@ -273,12 +284,24 @@ public final class CollectionOverhead {
                 rangeMap.put(Range.closedOpen(ii, i + 1), ii);
             }
             return rangeMap;
+        } else if (rangeSet != null) {
+            for (int i = 0; i < size; ++i) {
+                // ensure that range is sparse
+                rangeSet.add(Range.closedOpen(2 * i, 2 * i + 1));
+            }
+            return rangeSet;
         } else if (rangeMapBuilder != null) {
             for (int i = 0; i < size; ++i) {
                 Integer ii = i;
                 rangeMapBuilder.put(Range.closedOpen(ii, i + 1), ii);
             }
             return rangeMapBuilder.build();
+        } else if (rangeSetBuilder != null) {
+            for (int i = 0; i < size; ++i) {
+                // ensure that range is sparse
+                rangeSetBuilder.add(Range.closedOpen(2 * i, 2 * i + 1));
+            }
+            return rangeSetBuilder.build();
         } else if (troveCollection != null) {
             for (int i = 0; i < size; ++i) {
                 troveCollection.add(i);
