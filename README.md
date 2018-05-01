@@ -1,12 +1,9 @@
 # Java Collection Overhead
 
 Demonstrate overheads for various Java Collection implementations.  This
-measures storing `Long` data, excluding the cost of the key and value objects.
-Note that specialized collections for `long` report more overhead than those
-that store `Long` since the former stores inline as an 8-byte primitive but the
-latter stores a 4-byte reference to an external 16-byte object.  Presently
-comparing built-in Java, Guava, and Trove collections.  Tested with JDK 8 on
-x86-64 Linux with
+measures storing `int` data, excluding the cost of boxed `Integer`s.
+Presently comparing built-in Java, Guava, and Trove collections.  Tested with
+JDK 8 on x86-64 Linux with
 [compressed Oops](https://docs.oracle.com/javase/8/docs/technotes/guides/vm/performance-enhancements-7.html#compressedOop)
 (default).
 
@@ -23,8 +20,8 @@ per-instance overhead by creating many small collections with a single element.
 | ArrayList              |   4 |  52 |
 | ImmutableList          |   4 |  20 |
 | LinkedList             |  24 |  60 |
-| TLongArrayList         |   8 |  60 |
-| TLongLinkedList        |  32 |  68 |
+| TIntArrayList          |   4 |  52 |
+| TIntLinkedList         |  24 |  60 |
 |                        |     |     |
 | **Map**                |     |     |
 | Cache                  |  56 | 916 |
@@ -37,7 +34,7 @@ per-instance overhead by creating many small collections with a single element.
 | ImmutableSortedMap     |   8 | 108 |
 | LinkedHashMap          |  48 | 124 |
 | MapMaker               |  40 | 244 |
-| TLongLongHashMap       |  34 | 180 |
+| TIntIntHashMap         |  18 | 156 |
 | TreeMap                |  40 |  92 |
 | TreeRangeMap           | 120 | 188 |
 |                        |     |     |
@@ -61,7 +58,7 @@ per-instance overhead by creating many small collections with a single element.
 | ImmutableSet           |  12 |  28 |
 | ImmutableSortedSet     |   4 |  52 |
 | LinkedHashSet          |  48 | 140 |
-| TLongHashSet           |  18 | 132 |
+| TIntHashSet            |   8 | 116 |
 | TreeRangeSet           |  96 | 180 |
 | TreeSet                |  40 | 108 |
 

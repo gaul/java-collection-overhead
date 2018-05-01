@@ -64,11 +64,11 @@ import com.google.common.collect.TreeRangeMap;
 import com.google.common.collect.TreeRangeSet;
 import com.google.common.io.CharStreams;
 
-import gnu.trove.TLongCollection;
-import gnu.trove.list.array.TLongArrayList;
-import gnu.trove.list.linked.TLongLinkedList;
-import gnu.trove.map.hash.TLongLongHashMap;
-import gnu.trove.set.hash.TLongHashSet;
+import gnu.trove.TIntCollection;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.list.linked.TIntLinkedList;
+import gnu.trove.map.hash.TIntIntHashMap;
+import gnu.trove.set.hash.TIntHashSet;
 
 /** Demonstrate Java and Guava Collection overheads. */
 public final class CollectionOverhead {
@@ -100,10 +100,10 @@ public final class CollectionOverhead {
             "LinkedList",
             "MapMaker",
             "PriorityQueue",
-            "TLongArrayList",
-            "TLongLinkedList",
-            "TLongLongHashMap",
-            "TLongHashSet",
+            "TIntArrayList",
+            "TIntLinkedList",
+            "TIntIntHashMap",
+            "TIntHashSet",
             "TreeMap",
             "TreeMultiset",
             "TreeRangeMap",
@@ -163,8 +163,8 @@ public final class CollectionOverhead {
         RangeSet<Integer> rangeSet = null;
         ImmutableRangeMap.Builder<Integer, Integer> rangeMapBuilder = null;
         ImmutableRangeSet.Builder<Integer> rangeSetBuilder = null;
-        TLongCollection troveCollection = null;
-        TLongLongHashMap troveHashMap = null;
+        TIntCollection troveCollection = null;
+        TIntIntHashMap troveHashMap = null;
 
         if (type.equals("ArrayDeque")) {
             collection = Queues.newArrayDeque();
@@ -221,14 +221,14 @@ public final class CollectionOverhead {
             map = new MapMaker().concurrencyLevel(1).makeMap();
         } else if (type.equals("PriorityQueue")) {
             collection = new PriorityQueue<Integer>(size);
-        } else if (type.equals("TLongArrayList")) {
-            troveCollection = new TLongArrayList(size);
-        } else if (type.equals("TLongHashSet")) {
-            troveCollection = new TLongHashSet(size);
-        } else if (type.equals("TLongLinkedList")) {
-            troveCollection = new TLongLinkedList(size);
-        } else if (type.equals("TLongLongHashMap")) {
-            troveHashMap = new TLongLongHashMap(size);
+        } else if (type.equals("TIntArrayList")) {
+            troveCollection = new TIntArrayList(size);
+        } else if (type.equals("TIntHashSet")) {
+            troveCollection = new TIntHashSet(size);
+        } else if (type.equals("TIntLinkedList")) {
+            troveCollection = new TIntLinkedList(size);
+        } else if (type.equals("TIntIntHashMap")) {
+            troveHashMap = new TIntIntHashMap(size);
         } else if (type.equals("TreeMap")) {
             map = new TreeMap<>();
         } else if (type.equals("TreeMultiset")) {
