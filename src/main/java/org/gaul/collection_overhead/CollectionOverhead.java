@@ -70,6 +70,17 @@ import gnu.trove.list.linked.TIntLinkedList;
 import gnu.trove.map.hash.TIntIntHashMap;
 import gnu.trove.set.hash.TIntHashSet;
 
+import it.unimi.dsi.fastutil.ints.AbstractInt2IntMap;
+import it.unimi.dsi.fastutil.ints.AbstractIntCollection;
+import it.unimi.dsi.fastutil.ints.Int2IntAVLTreeMap;
+import it.unimi.dsi.fastutil.ints.Int2IntLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import it.unimi.dsi.fastutil.ints.Int2IntRBTreeMap;
+import it.unimi.dsi.fastutil.ints.IntAVLTreeSet;
+import it.unimi.dsi.fastutil.ints.IntLinkedOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
+
 /** Demonstrate Java and Guava Collection overheads. */
 public final class CollectionOverhead {
     private static final Collection<String> COLLECTIONS = Arrays.asList(
@@ -94,6 +105,14 @@ public final class CollectionOverhead {
             "ImmutableSet",
             "ImmutableSortedMap",
             "ImmutableSortedSet",
+            "Int2IntAVLTreeMap",
+            "Int2IntLinkedOpenHashMap",
+            "Int2IntOpenHashMap",
+            "Int2IntRBTreeMap",
+            "IntAVLTreeSet",
+            "IntLinkedOpenHashSet",
+            "IntOpenHashSet",
+            "IntRBTreeSet",
             "LinkedHashMap",
             "LinkedHashMultiset",
             "LinkedHashSet",
@@ -143,7 +162,7 @@ public final class CollectionOverhead {
                 " | awk '$4 !~ /java.lang.Integer/" +
                 " && $1 !~ /Total/{x += $3} END{print x}'"});
         long numBytes = Long.parseLong(output.trim());
-        System.out.printf("%-24s%8d%8d\n", args[0],
+        System.out.printf("%-26s%16d%8d\n", args[0],
                 numBytes / numCollections,
                 (long) (numBytes / (double) collectionSize) / numCollections);
 
@@ -163,6 +182,8 @@ public final class CollectionOverhead {
         RangeSet<Integer> rangeSet = null;
         ImmutableRangeMap.Builder<Integer, Integer> rangeMapBuilder = null;
         ImmutableRangeSet.Builder<Integer> rangeSetBuilder = null;
+        AbstractInt2IntMap fastutilMap = null;
+        AbstractIntCollection fastutilCollection = null;
         TIntCollection troveCollection = null;
         TIntIntHashMap troveHashMap = null;
 
@@ -209,6 +230,22 @@ public final class CollectionOverhead {
             mapBuilder = ImmutableSortedMap.naturalOrder();
         } else if (type.equals("ImmutableSortedSet")) {
             collectionBuilder = ImmutableSortedSet.naturalOrder();
+        } else if (type.equals("Int2IntAVLTreeMap")) {
+            fastutilMap = new Int2IntAVLTreeMap();
+        } else if (type.equals("Int2IntLinkedOpenHashMap")) {
+            fastutilMap = new Int2IntLinkedOpenHashMap(size);
+        } else if (type.equals("Int2IntOpenHashMap")) {
+            fastutilMap = new Int2IntOpenHashMap(size);
+        } else if (type.equals("Int2IntRBTreeMap")) {
+            fastutilMap = new Int2IntRBTreeMap();
+        } else if (type.equals("IntAVLTreeSet")) {
+            fastutilCollection = new IntAVLTreeSet();
+        } else if (type.equals("IntLinkedOpenHashSet")) {
+            fastutilCollection = new IntLinkedOpenHashSet(size);
+        } else if (type.equals("IntOpenHashSet")) {
+            fastutilCollection = new IntOpenHashSet(size);
+        } else if (type.equals("IntRBTreeSet")) {
+            fastutilCollection = new IntRBTreeSet();
         } else if (type.equals("LinkedHashMap")) {
             map = new LinkedHashMap<>(size);
         } else if (type.equals("LinkedHashMultiset")) {
@@ -302,6 +339,16 @@ public final class CollectionOverhead {
                 rangeSetBuilder.add(Range.closedOpen(2 * i, 2 * i + 1));
             }
             return rangeSetBuilder.build();
+        } else if (fastutilCollection != null) {
+            for (int i = 0; i < size; ++i) {
+                fastutilCollection.add(i);
+            }
+            return fastutilCollection;
+        } else if (fastutilMap != null) {
+            for (int i = 0; i < size; ++i) {
+                fastutilMap.put(i, i);
+            }
+            return fastutilMap;
         } else if (troveCollection != null) {
             for (int i = 0; i < size; ++i) {
                 troveCollection.add(i);
