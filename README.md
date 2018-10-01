@@ -39,6 +39,7 @@ per-instance overhead by creating many small collections with a single element.
 | Int2IntOpenHashMap       |  16 | 132 |
 | Int2IntRBTreeMap         |  32 | 452 |
 | LinkedHashMap            |  48 | 124 |
+| LongLongHashMap          |  32 | 116 |
 | MapMaker                 |  40 | 244 |
 | TIntIntHashMap           |  18 | 156 |
 | TreeMap                  |  40 |  92 |
@@ -68,6 +69,7 @@ per-instance overhead by creating many small collections with a single element.
 | IntOpenHashSet           |   8 |  84 |
 | IntRBTreeSet             |  32 | 436 |
 | LinkedHashSet            |  48 | 140 |
+| LongHashSet              |  16 |  76 |
 | TIntHashSet              |   8 | 116 |
 | TreeRangeSet             |  96 | 180 |
 | TreeSet                  |  40 | 108 |

@@ -253,5 +253,10 @@
       <artifactId>trove4j</artifactId>
       <version>3.0.3</version>
     </dependency>
+    <dependency>
+      <groupId>org.eclipse.collections</groupId>
+      <artifactId>eclipse-collections</artifactId>
+      <version>9.2.0</version>
+    </dependency>
   </dependencies>
 </project>

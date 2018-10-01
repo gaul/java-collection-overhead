@@ -81,6 +81,9 @@ import it.unimi.dsi.fastutil.ints.IntLinkedOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 
+import org.eclipse.collections.impl.map.mutable.primitive.LongLongHashMap;
+import org.eclipse.collections.impl.set.mutable.primitive.LongHashSet;
+
 /** Demonstrate Java and Guava Collection overheads. */
 public final class CollectionOverhead {
     private static final Collection<String> COLLECTIONS = Arrays.asList(
@@ -116,6 +119,8 @@ public final class CollectionOverhead {
             "LinkedHashMap",
             "LinkedHashMultiset",
             "LinkedHashSet",
+            "LongHashSet",
+            "LongLongHashMap",
             "LinkedList",
             "MapMaker",
             "PriorityQueue",
@@ -186,6 +191,8 @@ public final class CollectionOverhead {
         AbstractIntCollection fastutilCollection = null;
         TIntCollection troveCollection = null;
         TIntIntHashMap troveHashMap = null;
+        LongHashSet longHashSet = null;
+        LongLongHashMap longLongHashMap = null;
 
         if (type.equals("ArrayDeque")) {
             collection = Queues.newArrayDeque();
@@ -254,6 +261,10 @@ public final class CollectionOverhead {
             collection = new LinkedHashSet<>(size);
         } else if (type.equals("LinkedList")) {
             collection = new LinkedList<>();
+        } else if (type.equals("LongHashSet")) {
+            longHashSet = new LongHashSet(size);
+        } else if (type.equals("LongLongHashMap")) {
+            longLongHashMap = new LongLongHashMap(size);
         } else if (type.equals("MapMaker")) {
             map = new MapMaker().concurrencyLevel(1).makeMap();
         } else if (type.equals("PriorityQueue")) {
@@ -359,6 +370,16 @@ public final class CollectionOverhead {
                 troveHashMap.put(i, i);
             }
             return troveHashMap;
+        } else if (longHashSet != null) {
+            for (int i = 0; i < size; ++i) {
+                longHashSet.add(i);
+            }
+            return longHashSet;
+        } else if (longLongHashMap != null) {
+            for (int i = 0; i < size; ++i) {
+                longLongHashMap.put(i, i);
+            }
+            return longLongHashMap;
         } else {
             throw new IllegalStateException("Could not find collection");
         }
